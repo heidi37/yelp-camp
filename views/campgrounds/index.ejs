@@ -10,7 +10,7 @@
   <a href="/campgrounds/new">Add Campground</a>
   <ul>
     <% for (let campground of campgrounds) { %>
-    <li><a href="/campgrounds/<%= campground._id %>"><%= campground.title %></a> <a href="/campgrounds/<%= campground._id %>/edit">Edit</a></li>
+    <li><a href="/campgrounds/<%= campground._id %>"><%= campground.title %></a></li>
     <% } %>
   </ul>
 </body>

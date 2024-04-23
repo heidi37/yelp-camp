@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 const Campground = require('./models/campground')
+const methodOverride = require('method-override')
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
 
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded( {extended: true} ))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   res.render('home')
@@ -54,7 +56,21 @@ app.get('/campgrounds/:id', async(req, res) => {
 app.get('/campgrounds/:id/edit', async(req, res) => {
   const { id } = req.params
   const campground = await Campground.findById(id)
-  res.render('campgrounds/edit', {campground})
+  res.render('campgrounds/edit', { campground })
+})
+
+//edit PUT updates the data
+app.put('/campgrounds/:id', async (req, res) => {
+   const { id } = req.params
+   const campground = await Campground.findByIdAndUpdate(id, req.body.campground, { runValidators: true, new: true})
+   res.redirect(`/campgrounds/${campground._id}`)
+})
+
+//delete
+app.delete('/campgrounds/:id', async (req, res) => {
+  const { id } = req.params
+  const deletedCampground = await Campground.findByIdAndDelete(id)
+  res.redirect('/campgrounds')
 })
 
 
