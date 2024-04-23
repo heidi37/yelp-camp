@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit</title>
+</head>
+<body>
+  <form action="/campgrounds" method="POST">
+    <input type="text" id="text" name="campground[title]" value="<%= campground.title %>">
+    <input type="text" id="text" name="campground[location]" value="<%= campground.location %>">
+    <textarea name="description" id="campground[description]" cols="30" rows="10" value="<%= campground.description %>""></textarea>
+  </form>
+</body>
+</html>
